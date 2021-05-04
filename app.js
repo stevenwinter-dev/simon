@@ -6,6 +6,7 @@ const btn4 = document.querySelector('.btn4')
 const btnsContainer = document.querySelector('.btn-container')
 const startBtn = document.querySelector('#start')
 const level = document.querySelector('#level')
+const winEl = document.querySelector('#win')
 const milli100 = 500;
 
 //Start the game
@@ -25,7 +26,6 @@ let playerClicks = 0
 //Shows the computer pattern that the player must copy
 function runPattern(order, time) {
     //plays pattern array
-    
     btnFlash(order[0])
     setTimeout(() => {
         btnFlash(order[1])
@@ -53,6 +53,7 @@ btns.forEach(btn => btn.addEventListener('click', playerClick))
 
 //Adds players selections to playerPattern
 function playerClick(e) {
+    console.log(playerPattern)
     e.target.classList.add('userSelect')
     setTimeout(() => {
         e.target.classList.remove('userSelect')
@@ -79,18 +80,14 @@ function result() {
         }
         //Need to make pattern dynamic. 
     if(result1(playerPattern, pattern)) {
-        const win = document.createElement('div')
-        win.innerHTML = `
+        winEl.innerHTML = `
         <h1>You win!!!</h1>
         `
-        btnsContainer.after('win')
         nextLevel()
     } else {
-        const lose = document.createElement('div')
-        lose.innerHTML = `
+        winEl.innerHTML = `
         <h1>You lose</h1>
         `
-        btnsContainer.after('lose')
     }
 }
 
@@ -99,16 +96,21 @@ function result() {
 //Resets DOM elements and starts next level
 function nextLevel() {
     let currentLevel = parseInt(level.innerText)
-    level.innerText = currentLevel + 1
+    console.log(pattern)
     setTimeout(() => {
         runPattern(pattern2)
+        winEl.innerHTML = ''
+        level.innerText = currentLevel + 1
+        pattern = pattern2
+        playerPattern = []
+        playerClicks = 0
     }, 3000)
 }
 
 //starts the game when start button clicked
 function start() {
     setTimeout(() => {
-        runPattern(pattern2, 1)
+        runPattern(pattern, 1)
     }, 1000)
 }
 
