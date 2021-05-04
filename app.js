@@ -14,8 +14,8 @@ startBtn.addEventListener('click', start)
 
 //computer pattern choices
 let pattern = [btn1, btn2, btn3, btn4]
-let pattern2 = [btn4, btn3, btn2, btn1]
-let pattern3 = [btn1, btn1, btn4, btn2]
+
+let randomPattern = pattern.sort(() => Math.random() - 0.5)
 
 let patternClicks = pattern.length
 
@@ -98,10 +98,11 @@ function nextLevel() {
     let currentLevel = parseInt(level.innerText)
     console.log(pattern)
     setTimeout(() => {
-        runPattern(pattern2)
+        let newPattern = pattern.sort(() => Math.random() - 0.5)
+        runPattern(newPattern)
         winEl.innerHTML = ''
         level.innerText = currentLevel + 1
-        pattern = pattern2
+        pattern = newPattern
         playerPattern = []
         playerClicks = 0
     }, 3000)
@@ -110,9 +111,16 @@ function nextLevel() {
 //starts the game when start button clicked
 function start() {
     setTimeout(() => {
-        runPattern(pattern, 1)
+        runPattern(randomPattern, 1)
     }, 1000)
 }
+
+// function randomFlash() {
+//     let randNum = Math.floor(Math.random() * 4) + 1
+//     btns[randNum].classList.add('selected')
+// }
+
+// randomFlash()
 
 //Things to do:
 //Make pattern dynamic in result() so next level has correct win condition
