@@ -7,6 +7,8 @@ const btnsContainer = document.querySelector('.btn-container')
 const startBtn = document.querySelector('#start')
 const level = document.querySelector('#level')
 const winEl = document.querySelector('#win')
+const levelEl = document.querySelector('#level-container')
+const cardPicker = document.querySelector('.card-picker')
 const milli100 = 500;
 
 //Start the game
@@ -17,7 +19,7 @@ let pattern = [btn1, btn2, btn3, btn4]
 
 let randomPattern = pattern.sort(() => Math.random() - 0.5)
 
-let patternClicks = pattern.length
+let patternClicks = randomPattern.length
 
 //Tracks players selections and btn clicks
 let playerPattern = []
@@ -77,12 +79,12 @@ function result() {
                 if (arr1[i] !== arr2[i]) return false;
             }
             return true
-        }
-        //Need to make pattern dynamic. 
+        } 
     if(result1(playerPattern, pattern)) {
         winEl.innerHTML = `
         <h1>You win!!!</h1>
         `
+        //prolly add win function here with if statement. make level global variable
         nextLevel()
     } else {
         winEl.innerHTML = `
@@ -95,17 +97,28 @@ function result() {
 //Called by result() if winning condition met
 //Resets DOM elements and starts next level
 function nextLevel() {
+    youWin()
     let currentLevel = parseInt(level.innerText)
-    console.log(pattern)
+    let newPattern = pattern.sort(() => Math.random() - 0.5)
     setTimeout(() => {
-        let newPattern = pattern.sort(() => Math.random() - 0.5)
         runPattern(newPattern)
         winEl.innerHTML = ''
         level.innerText = currentLevel + 1
         pattern = newPattern
+        patternClicks = newPattern.length
         playerPattern = []
         playerClicks = 0
     }, 3000)
+}
+
+function youWin() {
+    if(parseInt(level.innerText) > 4) {
+        levelEl.remove()
+        winEl.remove()
+        btnsContainer.innerHTML = `
+        <h1>You Win!</h1>
+        `
+    }
 }
 
 //starts the game when start button clicked
@@ -115,18 +128,62 @@ function start() {
     }, 1000)
 }
 
-// function randomFlash() {
-//     let randNum = Math.floor(Math.random() * 4) + 1
-//     btns[randNum].classList.add('selected')
+fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
+    headers: {
+        "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
+	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+	    "useQueryString": true
+    }    
+})
+    .then(res => res.json())
+    .then(data => {
+        createCard(data)
+        createCard(data)
+        createCard(data)
+    })
+
+function createCard(data) {
+    const randNum = Math.floor(Math.random() * 388)
+    if(data[randNum].img) {
+        const cardChoice = document.createElement('div')
+        cardChoice.addEventListener('click', pickCard)
+        cardChoice.classList.add('card')
+        cardChoice.innerHTML = `
+            <img src="${data[randNum].img}" alt="">
+        `
+        cardPicker.append(cardChoice)
+    } else {
+        createCard(data)
+    }
+}
+let cardArr = []
+
+function pickCard(e) {
+    const card = e.target
+    cardArr.push(card)
+}
+//Add repeat btns by expanding the pattern array
+// function newLevel() {
+//     pattern.push(btn1, btn2, btn1, btn2)
+//     console.log(pattern)
 // }
 
-// randomFlash()
-
 //Things to do:
-//Make pattern dynamic in result() so next level has correct win condition
 //runPattern() - loop through to allow more buttons in pattern
 
 //result() compare arrays should be higher order func, every?
-//pattern - make array of array. pattern in functions should become patterns[0], etc
 
 //runPattern() space between repeated buttons in pattern
+
+// function runPat(pat) {
+//     const num = pat.length
+//     console.log(pat)
+//     for(i = 0; i < num; i++) {
+//     setTimeout(() => {
+//         for(i = 0; i < num; i++) {
+//             console.log(pat[i])
+//         }
+//     }, milli100 * i)
+// }
+// }
+// runPat(pattern)

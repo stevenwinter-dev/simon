@@ -4,10 +4,27 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: belwe;
+    src: url(/font/Belwe\ Medium.otf);
+  }
+
 body {
-    background-color: lightcoral;
+    background-color: black;
+    background-image: url('https://cdn.mos.cms.futurecdn.net/NtowSHSt9QyN4KHaW8ELWk.jpg');
+    background-size: cover;
+    background-position: center;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    font-family: belwe;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    text-shadow: 3px 3px black;
+    letter-spacing: 5px;
 }
 
 main {
@@ -16,13 +33,19 @@ main {
     align-items: center;
 }
 
+#level-container {
+    display: flex;
+    justify-content: center;
+    text-shadow: 3px 3px black;
+    letter-spacing: 2px;
+}
+
 #start {
     padding: 15px 0;
     width: 150px;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     cursor: pointer;
 }
-
 
 .container {
     height: 100vh;
@@ -38,17 +61,103 @@ main {
     width: 100vw;
 }
 
-.btn {
-    width: 100px;
-    height: 100px;
-    background-color: lightseagreen;
-    cursor: pointer;
-}
-
 .btn.userSelect {
-    background-color: springgreen;
+    background-color: firebrick;
 }
 
 .btn.selected {
     background-color: white;
+}
+
+#win {
+    height: 200px;
+    margin-top: 50px;
+}
+
+.btn-container {
+    height: 500px;
+    width: 500px;
+    background-color: #001219;
+    border-radius: 50%;
+    position: relative;
+}
+
+.btn {
+    cursor: pointer;
+    border: 8px solid #001219;
+}
+
+.btn1 {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* background-color: #f72585; */
+    background-color: #0a9396;
+    border-top-left-radius: 100%;
+}
+.btn2 {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* background-color: #560bad; */
+    background-color: #ee9b00;
+    border-top-right-radius: 100%;
+}
+.btn3 {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* background-color: #3f37c9; */
+    background-color: #ae2012;
+    border-bottom-left-radius: 100%;
+}
+.btn4 {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    /* background-color: #4cc9f0; */
+    background-color: #94d2bd;
+    border-bottom-right-radius: 100%;
+}
+.btn.userSelect {
+    background-color: firebrick;
+}
+
+.btn.selected {
+    filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5));
+}
+
+#inner-circle {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #001219;
+    border-radius: 50%;
+}
+
+.card-picker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 60vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+}
+
+.card img {
+    width: 90%;
+    margin-bottom: 25px;
 }
