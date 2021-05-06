@@ -42,9 +42,19 @@ function runPattern(order, time) {
     
     setTimeout(() => {
         if(level === 3) {
-            btnFlash(order[2])
+            btnFlash(order[Math.floor(Math.random() * order.length)])
         }  
     }, milli100*4)
+    setTimeout(() => {
+        if(level === 4) {
+            btnFlash(order[Math.floor(Math.random() * order.length)])
+        }  
+    }, milli100*5)
+    setTimeout(() => {
+        if(level === 5) {
+            btnFlash(order[Math.floor(Math.random() * order.length)])
+        }  
+    }, milli100*6)
     
     //adds selected class
     //removes selected class
@@ -90,13 +100,13 @@ function result() {
         } 
     if(result1(playerPattern, pattern)) {
         winEl.innerHTML = `
-        <h1>You win!!!</h1>
+        <h2>You win!!!</h2>
         `
         //prolly add win function here with if statement. make level global variable
         nextLevel()
     } else {
         winEl.innerHTML = `
-        <h1>You lose</h1>
+        <h2>You lose</h2>
         `
     }
 }
@@ -106,7 +116,20 @@ function result() {
 //Resets DOM elements and starts next level
 function nextLevel() {
     youWin()
-    let currentLevel = parseInt(levelSpan.innerText)
+    
+    cardPicker.style.display = 'flex'
+    if (cardArr.length === level) {
+        levelChange()
+        cardPicker.style.display = 'none'
+    } else {
+        setTimeout(() => {
+            nextLevel()
+        }, 1000)
+    }
+    
+}
+
+function levelChange() {
     pattern.push(pattern[Math.floor(Math.random())*pattern.length])
     let newPattern = pattern.sort(() => Math.random() - 0.5)
     console.log(newPattern)
@@ -114,12 +137,12 @@ function nextLevel() {
     setTimeout(() => {
         runPattern(newPattern)
         winEl.innerHTML = ''
-        levelSpan.innerText = currentLevel + 1
+        levelSpan.innerText = level
         pattern = newPattern
         patternClicks = newPattern.length
         playerPattern = []
         playerClicks = 0
-    }, 3000)
+    }, 2000)
 }
 
 function youWin() {
@@ -137,45 +160,49 @@ function start() {
     setTimeout(() => {
         runPattern(randomPattern, 1)
     }, 1000)
+    startBtn.remove()
 }
 //143-176 commented out for phone data
-// fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
-//     headers: {
-//         "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
-// 	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-// 	    "useQueryString": true
-//     }    
-// })
-//     .then(res => res.json())
-//     .then(data => {
-//         createCard(data)
-//         createCard(data)
-//         createCard(data)
-//     })
+fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
+    headers: {
+        "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
+	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+	    "useQueryString": true
+    }    
+})
+    .then(res => res.json())
+    .then(data => {
+        createCard(data)
+        createCard(data)
+        createCard(data)
+    })
 
-// function createCard(data) {
-//     const randNum = Math.floor(Math.random() * 388)
-//     if(data[randNum].img) {
-//         const cardChoice = document.createElement('div')
-//         cardChoice.addEventListener('click', pickCard)
-//         cardChoice.classList.add('card')
-//         cardChoice.innerHTML = `
-//             <img src="${data[randNum].img}" alt="">
-//         `
-//         cardPicker.append(cardChoice)
-//     } else {
-//         createCard(data)
-//     }
-// }
-// let cardArr = []
+function createCard(data) {
+    cardPicker.style.display = 'flex'
+    const randNum = Math.floor(Math.random() * 388)
+    if(data[randNum].img) {
+        const cardChoice = document.createElement('div')
+        cardChoice.addEventListener('click', pickCard)
+        cardChoice.classList.add('card')
+        cardChoice.innerHTML = `
+            <img src="${data[randNum].img}" alt="">
+        `
+        cardPicker.append(cardChoice)
+        cardPicker.style.display = 'none'
+    } else {
+        createCard(data)
+    }
+}
+let cardArr = []
 
-// function pickCard(e) {
-//     const card = e.target
-//     cardArr.push(card)
-// }
+function pickCard(e) {
+    const card = e.target
+    cardArr.push(card)
+    card.classList.add('added')
+}
 
 
-//Add repeat btns by expanding the pattern array
+// Add repeat btns by expanding the pattern array
 // function newLevel() {
 //     pattern.push(btn1, btn2, btn1, btn2)
 //     console.log(pattern)
