@@ -9,6 +9,7 @@ const levelSpan = document.querySelector('#level')
 const winEl = document.querySelector('#win')
 const levelEl = document.querySelector('#level-container')
 const cardPicker = document.querySelector('.card-picker')
+const deckContainer = document.querySelector('.deck-container')
 const milli100 = 500;
 
 //Start the game
@@ -41,17 +42,18 @@ function runPattern(order, time) {
     }, milli100*3)
     
     setTimeout(() => {
-        if(level === 3) {
-            btnFlash(order[Math.floor(Math.random() * order.length)])
+        if(level === 2) {
+            console.log('hiii')
+            btnFlash(order[4])
         }  
     }, milli100*4)
     setTimeout(() => {
-        if(level === 4) {
+        if(level === 3) {
             btnFlash(order[Math.floor(Math.random() * order.length)])
         }  
     }, milli100*5)
     setTimeout(() => {
-        if(level === 5) {
+        if(level === 4) {
             btnFlash(order[Math.floor(Math.random() * order.length)])
         }  
     }, milli100*6)
@@ -73,7 +75,6 @@ btns.forEach(btn => btn.addEventListener('click', playerClick))
 
 //Adds players selections to playerPattern
 function playerClick(e) {
-    console.log(playerPattern)
     e.target.classList.add('userSelect')
     setTimeout(() => {
         e.target.classList.remove('userSelect')
@@ -91,7 +92,6 @@ function playerClick(e) {
 //if arrays are different, lose
     //game over
 function result() {
-    console.log(playerPattern)
         let result1 = (arr1, arr2) => {
             for(let i = 0; i < arr1.length; i++) {
                 if (arr1[i] !== arr2[i]) return false;
@@ -116,16 +116,20 @@ function result() {
 //Resets DOM elements and starts next level
 function nextLevel() {
     youWin()
+    setTimeout(() => {
+        showCardChoices()
     
-    cardPicker.style.display = 'flex'
     if (cardArr.length === level) {
-        levelChange()
-        cardPicker.style.display = 'none'
+        setTimeout(() => {
+            levelChange()
+            hideCardChoices()
+        }, 3000); /* Timer until next level starts, after card picked*/
     } else {
         setTimeout(() => {
             nextLevel()
-        }, 1000)
+        }, 500) /* Timer to check if card has been picked */
     }
+    }, 2000); /* Timer until cardChoices shown */
     
 }
 
@@ -178,7 +182,6 @@ fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
     })
 
 function createCard(data) {
-    cardPicker.style.display = 'flex'
     const randNum = Math.floor(Math.random() * 388)
     if(data[randNum].img) {
         const cardChoice = document.createElement('div')
@@ -200,6 +203,19 @@ function pickCard(e) {
     cardArr.push(card)
     card.classList.add('added')
 }
+
+function showCardChoices() {
+    cardPicker.style.display = 'flex'
+}
+
+function hideCardChoices() {
+    cardPicker.style.display = 'none'
+}
+
+function showDeck() {
+    deckContainer.style.display = 'flex'
+}
+
 
 
 // Add repeat btns by expanding the pattern array
