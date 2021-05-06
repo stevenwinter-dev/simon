@@ -5,7 +5,7 @@ const btn3 = document.querySelector('.btn3')
 const btn4 = document.querySelector('.btn4')
 const btnsContainer = document.querySelector('.btn-container')
 const startBtn = document.querySelector('#start')
-const level = document.querySelector('#level')
+const levelSpan = document.querySelector('#level')
 const winEl = document.querySelector('#win')
 const levelEl = document.querySelector('#level-container')
 const cardPicker = document.querySelector('.card-picker')
@@ -24,6 +24,7 @@ let patternClicks = randomPattern.length
 //Tracks players selections and btn clicks
 let playerPattern = []
 let playerClicks = 0
+let level = 1
 
 //Shows the computer pattern that the player must copy
 function runPattern(order, time) {
@@ -38,6 +39,13 @@ function runPattern(order, time) {
     setTimeout(() => {
         btnFlash(order[3])
     }, milli100*3)
+    
+    setTimeout(() => {
+        if(level === 3) {
+            btnFlash(order[2])
+        }  
+    }, milli100*4)
+    
     //adds selected class
     //removes selected class
 }
@@ -98,12 +106,15 @@ function result() {
 //Resets DOM elements and starts next level
 function nextLevel() {
     youWin()
-    let currentLevel = parseInt(level.innerText)
+    let currentLevel = parseInt(levelSpan.innerText)
+    pattern.push(pattern[Math.floor(Math.random())*pattern.length])
     let newPattern = pattern.sort(() => Math.random() - 0.5)
+    console.log(newPattern)
+    level += 1
     setTimeout(() => {
         runPattern(newPattern)
         winEl.innerHTML = ''
-        level.innerText = currentLevel + 1
+        levelSpan.innerText = currentLevel + 1
         pattern = newPattern
         patternClicks = newPattern.length
         playerPattern = []
@@ -112,7 +123,7 @@ function nextLevel() {
 }
 
 function youWin() {
-    if(parseInt(level.innerText) > 4) {
+    if(level === 5) {
         levelEl.remove()
         winEl.remove()
         btnsContainer.innerHTML = `
@@ -127,41 +138,43 @@ function start() {
         runPattern(randomPattern, 1)
     }, 1000)
 }
+//143-176 commented out for phone data
+// fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
+//     headers: {
+//         "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
+// 	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+// 	    "useQueryString": true
+//     }    
+// })
+//     .then(res => res.json())
+//     .then(data => {
+//         createCard(data)
+//         createCard(data)
+//         createCard(data)
+//     })
 
-fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
-    headers: {
-        "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
-	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-	    "useQueryString": true
-    }    
-})
-    .then(res => res.json())
-    .then(data => {
-        createCard(data)
-        createCard(data)
-        createCard(data)
-    })
+// function createCard(data) {
+//     const randNum = Math.floor(Math.random() * 388)
+//     if(data[randNum].img) {
+//         const cardChoice = document.createElement('div')
+//         cardChoice.addEventListener('click', pickCard)
+//         cardChoice.classList.add('card')
+//         cardChoice.innerHTML = `
+//             <img src="${data[randNum].img}" alt="">
+//         `
+//         cardPicker.append(cardChoice)
+//     } else {
+//         createCard(data)
+//     }
+// }
+// let cardArr = []
 
-function createCard(data) {
-    const randNum = Math.floor(Math.random() * 388)
-    if(data[randNum].img) {
-        const cardChoice = document.createElement('div')
-        cardChoice.addEventListener('click', pickCard)
-        cardChoice.classList.add('card')
-        cardChoice.innerHTML = `
-            <img src="${data[randNum].img}" alt="">
-        `
-        cardPicker.append(cardChoice)
-    } else {
-        createCard(data)
-    }
-}
-let cardArr = []
+// function pickCard(e) {
+//     const card = e.target
+//     cardArr.push(card)
+// }
 
-function pickCard(e) {
-    const card = e.target
-    cardArr.push(card)
-}
+
 //Add repeat btns by expanding the pattern array
 // function newLevel() {
 //     pattern.push(btn1, btn2, btn1, btn2)
