@@ -43,18 +43,20 @@ function runPattern(order, time) {
     
     setTimeout(() => {
         if(level === 2) {
-            console.log('hiii')
             btnFlash(order[4])
         }  
     }, milli100*4)
     setTimeout(() => {
         if(level === 3) {
-            btnFlash(order[Math.floor(Math.random() * order.length)])
+            btnFlash(order[4])
+            btnFlash(order[5])
         }  
     }, milli100*5)
     setTimeout(() => {
         if(level === 4) {
-            btnFlash(order[Math.floor(Math.random() * order.length)])
+            btnFlash(order[4])
+            btnFlash(order[5])
+            btnFlash(order[6])
         }  
     }, milli100*6)
     
@@ -123,6 +125,7 @@ function nextLevel() {
         setTimeout(() => {
             levelChange()
             hideCardChoices()
+            fetching()
         }, 3000); /* Timer until next level starts, after card picked*/
     } else {
         setTimeout(() => {
@@ -136,7 +139,6 @@ function nextLevel() {
 function levelChange() {
     pattern.push(pattern[Math.floor(Math.random())*pattern.length])
     let newPattern = pattern.sort(() => Math.random() - 0.5)
-    console.log(newPattern)
     level += 1
     setTimeout(() => {
         runPattern(newPattern)
@@ -167,7 +169,8 @@ function start() {
     startBtn.remove()
 }
 //143-176 commented out for phone data
-fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
+async function fetching() {
+    fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
     headers: {
         "x-rapidapi-key": "8f0f6fa807mshfb295bf6d28f26ap1b675djsnda08c4e1eaa1",
 	    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
@@ -180,7 +183,9 @@ fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/classic', {
         createCard(data)
         createCard(data)
     })
+}
 
+fetching()
 function createCard(data) {
     const randNum = Math.floor(Math.random() * 388)
     if(data[randNum].img) {
@@ -210,6 +215,7 @@ function showCardChoices() {
 
 function hideCardChoices() {
     cardPicker.style.display = 'none'
+    cardPicker.innerHTML = ''
 }
 
 function showDeck() {
