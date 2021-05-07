@@ -10,6 +10,7 @@ const winEl = document.querySelector('#win')
 const levelEl = document.querySelector('#level-container')
 const cardPicker = document.querySelector('.card-picker')
 const deckContainer = document.querySelector('.deck-container')
+const showDeckBtn = document.querySelector('#showDeck')
 const milli100 = 500;
 
 //Start the game
@@ -29,6 +30,8 @@ let level = 1
 
 //Shows the computer pattern that the player must copy
 function runPattern(order, time) {
+    console.log(pattern)
+    console.log(cardArr)
     //plays pattern array
     btnFlash(order[0])
     setTimeout(() => {
@@ -49,7 +52,10 @@ function runPattern(order, time) {
     setTimeout(() => {
         if(level === 3) {
             btnFlash(order[4])
-            btnFlash(order[5])
+            setTimeout(() => {
+                btnFlash(order[5])
+                console.log('hiiii')
+            }, milli100 * 1);
         }  
     }, milli100*5)
     setTimeout(() => {
@@ -130,7 +136,7 @@ function nextLevel() {
     } else {
         setTimeout(() => {
             nextLevel()
-        }, 500) /* Timer to check if card has been picked */
+        }, 3000) /* Timer to check if card has been picked */
     }
     }, 2000); /* Timer until cardChoices shown */
     
@@ -140,6 +146,7 @@ function levelChange() {
     pattern.push(pattern[Math.floor(Math.random())*pattern.length])
     let newPattern = pattern.sort(() => Math.random() - 0.5)
     level += 1
+    hideDeck()
     setTimeout(() => {
         runPattern(newPattern)
         winEl.innerHTML = ''
@@ -148,7 +155,7 @@ function levelChange() {
         patternClicks = newPattern.length
         playerPattern = []
         playerClicks = 0
-    }, 2000)
+    }, 3000)
 }
 
 function youWin() {
@@ -185,7 +192,7 @@ async function fetching() {
     })
 }
 
-fetching()
+// fetching()
 function createCard(data) {
     const randNum = Math.floor(Math.random() * 388)
     if(data[randNum].img) {
@@ -201,17 +208,30 @@ function createCard(data) {
         createCard(data)
     }
 }
+
 let cardArr = []
+// https://d15f34w2p8l1cc.cloudfront.net/hearthstone/…c31b8121c00671820135f108703df12a5aa40980592c5.png
 
 function pickCard(e) {
     const card = e.target
-    cardArr.push(card)
+    cardArr.push(card.src)
     card.classList.add('added')
+    // console.log(card)
+    console.log(card.src)
 }
+
 
 function showCardChoices() {
     cardPicker.style.display = 'flex'
+    showDeck()
 }
+
+let arrr = [1,2,3]
+let add = 4
+if(!arrr.includes(add)) {
+    arrr.push(add)
+}
+console.log(arrr)
 
 function hideCardChoices() {
     cardPicker.style.display = 'none'
@@ -220,32 +240,53 @@ function hideCardChoices() {
 
 function showDeck() {
     deckContainer.style.display = 'flex'
+    cardArrFunc()
 }
 
+function cardArrFunc() {
+    cardArr.forEach((card) => {
+        console.log(deckContainer.firstElementChild)
+        if(!deckContainer.firstElementChild){
+        deckContainer.innerHTML += `
+        <img src="${card}" alt="">
+        ` 
+    } else {
+        //if deckContainer.childNodes contains card 
+        console.log(deckContainer.childNodes[1])
+        // deckContainer.childNodes.forEach((node) => {
+        //     if(node.contains(card)) {
+        //         console.log('node test')
+        //     }
+        // })
+        if(deckContainer.lastElementChild.childNodes) {
+            console.log(deckContainer.lastElementChild.src)
+            
+            if(deckContainer.lastElementChild.src !== card) {
+                deckContainer.innerHTML += `
+                <img src="${card}" alt="">
+                `  
+            }
+        }
+    }
+})
+}
 
+function hideDeck() {
+    deckContainer.style.display = 'none'
+}
 
-// Add repeat btns by expanding the pattern array
-// function newLevel() {
-//     pattern.push(btn1, btn2, btn1, btn2)
-//     console.log(pattern)
-// }
+showDeckBtn.addEventListener('click', function() {
+    if (deckContainer.style.display === '' ||deckContainer.style.display === 'none') {
+        deckContainer.style.display = 'flex'
+    } else {
+        deckContainer.style.display = 'none'
+    }
+})
 
 //Things to do:
-//runPattern() - loop through to allow more buttons in pattern
 
 //result() compare arrays should be higher order func, every?
 
 //runPattern() space between repeated buttons in pattern
-
-// function runPat(pat) {
-//     const num = pat.length
-//     console.log(pat)
-//     for(i = 0; i < num; i++) {
-//     setTimeout(() => {
-//         for(i = 0; i < num; i++) {
-//             console.log(pat[i])
-//         }
-//     }, milli100 * i)
-// }
-// }
-// runPat(pattern)
+//fix repeated cards being added on round 3 and above
+//css glow for buttons
