@@ -156,11 +156,11 @@ function nextLevel() {
                 levelChange()
                 hideCardChoices()
                 fetching()
-            }, 3000); /* Timer until next level starts, after card picked*/
+            }, 1000); /* Timer until next level starts, after card picked*/
         } else {
             setTimeout(() => {
                 nextLevel()
-            }, 3000) /* Timer to check if card has been picked */
+            }, 1000) /* Timer to check if card has been picked */
         }
         }, 2000); /* Timer until cardChoices shown */
     } else {
@@ -192,11 +192,11 @@ function youWin() {
         winEl.remove()
         innerCircle.remove()
         btnsContainer.remove()
-        
         showCardChoices()
         setTimeout(() => {
             cardArrFunc()
             showDeck()
+            hideCardChoices()
         }, 5000);
         
         const gameOver = document.createElement('div')
