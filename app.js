@@ -11,6 +11,8 @@ const levelEl = document.querySelector('#level-container')
 const cardPicker = document.querySelector('.card-picker')
 const deckContainer = document.querySelector('.deck-container')
 const showDeckBtn = document.querySelector('#showDeck')
+const innerCircle = document.querySelector('#inner-circle')
+const main = document.querySelector('main')
 const milli100 = 500;
 
 //Start the game
@@ -51,20 +53,44 @@ function runPattern(order, time) {
     }, milli100*4)
     setTimeout(() => {
         if(level === 3) {
-            btnFlash(order[4])
+            setTimeout(() => {
+                btnFlash(order[4])    
+            }, milli100);
             setTimeout(() => {
                 btnFlash(order[5])
                 console.log('hiiii')
-            }, milli100 * 1);
+            }, milli100 * 2);
         }  
-    }, milli100*5)
+    }, milli100*3.2)
     setTimeout(() => {
         if(level === 4) {
-            btnFlash(order[4])
-            btnFlash(order[5])
-            btnFlash(order[6])
+            setTimeout(() => {
+                btnFlash(order[4])    
+            }, milli100);
+            setTimeout(() => {
+                btnFlash(order[5])
+            }, milli100 * 2);
+            setTimeout(() => {
+                btnFlash(order[6])
+            }, milli100 * 3);  
         }  
-    }, milli100*6)
+    }, milli100*3.2)
+    setTimeout(() => {
+        if(level === 5) {
+            setTimeout(() => {
+                btnFlash(order[4])    
+            }, milli100);
+            setTimeout(() => {
+                btnFlash(order[5])
+            }, milli100 * 2);
+            setTimeout(() => {
+                btnFlash(order[6])
+            }, milli100 * 3);
+            setTimeout(() => {
+                btnFlash(order[6])
+            }, milli100 * 4);   
+        }  
+    }, milli100*3.2)
     
     //adds selected class
     //removes selected class
@@ -72,10 +98,10 @@ function runPattern(order, time) {
 
 //button flashes when computer selects it
 function btnFlash(btn) {
-    btn.classList.add('selected')
+    btn.classList.toggle('selected')
     setTimeout(() => {
-        btn.classList.remove('selected')
-    }, milli100)
+        btn.classList.toggle('selected')
+    }, milli100/4)
 }
 
 //Adds playerClick to all game buttons
@@ -86,7 +112,7 @@ function playerClick(e) {
     e.target.classList.add('userSelect')
     setTimeout(() => {
         e.target.classList.remove('userSelect')
-    }, 500)
+    }, 150)
     playerClicks += 1
     playerPattern.push(e.target)
     if(playerClicks === patternClicks) {
@@ -123,22 +149,26 @@ function result() {
 //Called by result() if winning condition met
 //Resets DOM elements and starts next level
 function nextLevel() {
-    youWin()
-    setTimeout(() => {
-        showCardChoices()
-    
-    if (cardArr.length === level) {
+    if(level !== 5) {
         setTimeout(() => {
-            levelChange()
-            hideCardChoices()
-            fetching()
-        }, 3000); /* Timer until next level starts, after card picked*/
+            showCardChoices()
+        
+        if (cardArr.length === level) {
+            setTimeout(() => {
+                levelChange()
+                hideCardChoices()
+                fetching()
+            }, 3000); /* Timer until next level starts, after card picked*/
+        } else {
+            setTimeout(() => {
+                nextLevel()
+            }, 3000) /* Timer to check if card has been picked */
+        }
+        }, 2000); /* Timer until cardChoices shown */
     } else {
-        setTimeout(() => {
-            nextLevel()
-        }, 3000) /* Timer to check if card has been picked */
+        youWin()
     }
-    }, 2000); /* Timer until cardChoices shown */
+    
     
 }
 
@@ -162,16 +192,29 @@ function youWin() {
     if(level === 5) {
         levelEl.remove()
         winEl.remove()
-        btnsContainer.innerHTML = `
+        innerCircle.remove()
+        btnsContainer.remove()
+        showDeck()
+        const gameOver = document.createElement('div')
+        gameOver.classList.add('winScreen')
+        gameOver.innerHTML = `
         <h1>You Win!</h1>
+        <h2>Here's your deck!</h2>
+        <p>Play again?</p>
+        <button class='start' id='playAgain'><i class="far fa-play-circle"></i></button>
         `
+        main.append(gameOver)
+        const playAgain = document.querySelector('#playAgain')
+        playAgain.addEventListener('click', function() {
+            location.reload()
+        })
     }
 }
 
 //starts the game when start button clicked
 function start() {
     setTimeout(() => {
-        runPattern(randomPattern, 1)
+        runPattern(randomPattern)
     }, 1000)
     startBtn.remove()
 }
@@ -192,7 +235,7 @@ async function fetching() {
     })
 }
 
-// fetching()
+fetching()
 function createCard(data) {
     const randNum = Math.floor(Math.random() * 388)
     if(data[randNum].img) {
@@ -225,13 +268,6 @@ function showCardChoices() {
     cardPicker.style.display = 'flex'
     showDeck()
 }
-
-let arrr = [1,2,3]
-let add = 4
-if(!arrr.includes(add)) {
-    arrr.push(add)
-}
-console.log(arrr)
 
 function hideCardChoices() {
     cardPicker.style.display = 'none'
@@ -275,13 +311,13 @@ function hideDeck() {
     deckContainer.style.display = 'none'
 }
 
-showDeckBtn.addEventListener('click', function() {
-    if (deckContainer.style.display === '' ||deckContainer.style.display === 'none') {
-        deckContainer.style.display = 'flex'
-    } else {
-        deckContainer.style.display = 'none'
-    }
-})
+// showDeckBtn.addEventListener('click', function() {
+//     if (deckContainer.style.display === '' ||deckContainer.style.display === 'none') {
+//         deckContainer.style.display = 'flex'
+//     } else {
+//         deckContainer.style.display = 'none'
+//     }
+// })
 
 //Things to do:
 

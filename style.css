@@ -41,17 +41,21 @@ main {
     letter-spacing: 2px;
 }
 
-#start {
-    padding: 15px 0;
-    width: 150px;
+.start {
     margin-bottom: 50px;
     cursor: pointer;
-    /* background-image: url(/31EDDC6D-B249-4B33-A39E-3B6B7FD8AD2A_4_5005_c.jpeg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #001219;
+    color: lime;
+    font-size: 2em;
+    text-shadow: 1.5px 1.5px black;
+    border: none;
+    font-size: 6em;
+    transition: all .5s ease;
+}
+
+#start:hover {
+    transform: scale(1.05);
     color: white;
-    text-shadow: 1px 1px black; */
 }
 
 .container {
@@ -80,11 +84,10 @@ main {
         /* filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5)); */
 }
 
-#win {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+
+
+#start {
+    margin-top: 50px;
 }
 
 .btn-container {
@@ -146,9 +149,9 @@ main {
     border-bottom-right-radius: 100%;
 }
 .btn.userSelect {
-    background-color: deeppink;
-    box-shadow: 0px 0px 7px 7px deeppink;
-    border: deeppink;
+    background-color: white;
+    box-shadow: 0px 0px 7px 7px white;
+    border: white;
 }
 
 
@@ -162,6 +165,9 @@ main {
     transform: translate(-50%, -50%);
     background-color: #001219;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-picker {
@@ -207,4 +213,21 @@ main {
 
 .hide {
     display: none;
+}
+
+.winScreen {
+    height: 50vh;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#playAgain {
+    background-color: transparent;
 }

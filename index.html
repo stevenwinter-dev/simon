@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,13 +15,14 @@
             <h2 id='level-container'>Level <span id='level'>1</span></h2>
         </header>
         <main>
-            <button id='start'>Play</button>
+            
             <div class="btn-container">
                 <div class="btn btn1" tabindex="1" data-num='1'></div>
                 <div class="btn btn2" tabindex="1" data-num='2'></div>
                 <div class="btn btn3" tabindex="1" data-num='3'></div>
                 <div class="btn btn4" tabindex="1" data-num='4'></div>
                 <div id='inner-circle'>
+                    <button id='start' class='start'><i class="far fa-play-circle"></i></button>
                     <div id='win'></div>
                 </div>
             </div>
@@ -39,7 +41,7 @@
                 <img src="/f56a7ccd0c58861470db36b37ee8795942f3da0eb7e9e020f3ee0b5d4c3c75bb.png" alt="">
             </div> -->
         </div>
-        <button id='showDeck'>ICON</button>
+        <!-- <button id='showDeck'>ICON</button> -->
         <footer>
             <p>Created by Steven Winter</p>
         </footer>
