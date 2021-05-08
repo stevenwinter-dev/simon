@@ -145,7 +145,8 @@ main {
     bottom: 0;
     right: 0;
     /* background-color: #4cc9f0; */
-    background-color: #94d2bd;
+    /* background-color: #94d2bd; */
+    background-color: #181E3A;
     border-bottom-right-radius: 100%;
 }
 .btn.userSelect {
@@ -205,7 +206,14 @@ main {
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     display: none;
+    flex-wrap: wrap;
 }
+
+.deck-container img {
+    max-width: 200px;
+    height: 250px;
+}
+
 
 .show {
     display: flex;
@@ -230,4 +238,21 @@ main {
 
 #playAgain {
     background-color: transparent;
+}
+
+@media screen and (max-width:600px){
+    .deck-container {
+        flex-wrap: wrap;
+    }
+    .deck-container img {
+        width: 150px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width:904px){
+    .deck-container img {
+        width: 150px;
+        height: 200px;
+    }
 }

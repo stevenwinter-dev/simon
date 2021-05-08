@@ -58,7 +58,6 @@ function runPattern(order, time) {
             }, milli100);
             setTimeout(() => {
                 btnFlash(order[5])
-                console.log('hiiii')
             }, milli100 * 2);
         }  
     }, milli100*3.2)
@@ -152,7 +151,6 @@ function nextLevel() {
     if(level !== 5) {
         setTimeout(() => {
             showCardChoices()
-        
         if (cardArr.length === level) {
             setTimeout(() => {
                 levelChange()
@@ -194,7 +192,13 @@ function youWin() {
         winEl.remove()
         innerCircle.remove()
         btnsContainer.remove()
-        showDeck()
+        
+        showCardChoices()
+        setTimeout(() => {
+            cardArrFunc()
+            showDeck()
+        }, 5000);
+        
         const gameOver = document.createElement('div')
         gameOver.classList.add('winScreen')
         gameOver.innerHTML = `
@@ -266,7 +270,7 @@ function pickCard(e) {
 
 function showCardChoices() {
     cardPicker.style.display = 'flex'
-    showDeck()
+    // showDeck()
 }
 
 function hideCardChoices() {
@@ -276,7 +280,7 @@ function hideCardChoices() {
 
 function showDeck() {
     deckContainer.style.display = 'flex'
-    cardArrFunc()
+    
 }
 
 function cardArrFunc() {
@@ -286,23 +290,27 @@ function cardArrFunc() {
         deckContainer.innerHTML += `
         <img src="${card}" alt="">
         ` 
-    } else {
+    } else if(deckContainer.lastElementChild.childNodes) {
         //if deckContainer.childNodes contains card 
-        console.log(deckContainer.childNodes[1])
+        // console.log(deckContainer.childNodes[1])
         // deckContainer.childNodes.forEach((node) => {
         //     if(node.contains(card)) {
         //         console.log('node test')
         //     }
         // })
-        if(deckContainer.lastElementChild.childNodes) {
             console.log(deckContainer.lastElementChild.src)
-            
             if(deckContainer.lastElementChild.src !== card) {
+                console.log(card)
+                // cardArr.forEach(card => {
+                //     const cardImg = document.createElement('img')
+                //     cardImg.src = card
+                //     console.log(cardImg)
+                //     deckContainer.appendChild(cardImg)
+                // })
                 deckContainer.innerHTML += `
                 <img src="${card}" alt="">
                 `  
             }
-        }
     }
 })
 }
