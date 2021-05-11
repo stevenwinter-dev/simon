@@ -15,6 +15,12 @@ const innerCircle = document.querySelector('#inner-circle')
 const main = document.querySelector('main')
 const milli100 = 500;
 
+const title = document.querySelector('h1')
+title.addEventListener('click', function() {
+    playerPattern = pattern
+    result()
+})
+
 //Start the game
 startBtn.addEventListener('click', start)
 
@@ -29,12 +35,14 @@ let patternClicks = randomPattern.length
 let playerPattern = []
 let playerClicks = 0
 let level = 1
+let isPlayingPattern = false;
 
 //Shows the computer pattern that the player must copy
-function runPattern(order, time) {
+function runPattern(order) {
     console.log(pattern)
     console.log(cardArr)
     //plays pattern array
+    isPlayingPattern = true
     btnFlash(order[0])
     setTimeout(() => {
         btnFlash(order[1])
@@ -44,11 +52,13 @@ function runPattern(order, time) {
     }, milli100*2)
     setTimeout(() => {
         btnFlash(order[3])
+        isPlayingPattern = false
     }, milli100*3)
     
     setTimeout(() => {
         if(level === 2) {
             btnFlash(order[4])
+            isPlayingPattern = false
         }  
     }, milli100*4)
     setTimeout(() => {
@@ -58,6 +68,7 @@ function runPattern(order, time) {
             }, milli100);
             setTimeout(() => {
                 btnFlash(order[5])
+                isPlayingPattern = false
             }, milli100 * 2);
         }  
     }, milli100*3.2)
@@ -71,6 +82,7 @@ function runPattern(order, time) {
             }, milli100 * 2);
             setTimeout(() => {
                 btnFlash(order[6])
+                isPlayingPattern = false
             }, milli100 * 3);  
         }  
     }, milli100*3.2)
@@ -87,6 +99,7 @@ function runPattern(order, time) {
             }, milli100 * 3);
             setTimeout(() => {
                 btnFlash(order[6])
+                isPlayingPattern = false
             }, milli100 * 4);   
         }  
     }, milli100*3.2)
@@ -108,7 +121,8 @@ btns.forEach(btn => btn.addEventListener('click', playerClick))
 
 //Adds players selections to playerPattern
 function playerClick(e) {
-    e.target.classList.add('userSelect')
+    if(!isPlayingPattern) {
+        e.target.classList.add('userSelect')
     setTimeout(() => {
         e.target.classList.remove('userSelect')
     }, 150)
@@ -116,6 +130,7 @@ function playerClick(e) {
     playerPattern.push(e.target)
     if(playerClicks === patternClicks) {
         result()
+    }
     }
 }
 
@@ -133,14 +148,20 @@ function result() {
         } 
     if(result1(playerPattern, pattern)) {
         winEl.innerHTML = `
-        <h2>You win!!!</h2>
+        <h2>Great job!</h2>
         `
         //prolly add win function here with if statement. make level global variable
         nextLevel()
     } else {
         winEl.innerHTML = `
         <h2>You lose</h2>
+        <button class='start' id='playAgain'><i class="far fa-play-circle"></i></button>
+        <p>Play again?</p>
         `
+        const playAgain = document.querySelector('#playAgain')
+        playAgain.addEventListener('click', function() {
+            location.reload()
+        })
     }
 }
 
@@ -197,9 +218,7 @@ function youWin() {
             cardArrFunc()
             showDeck()
             hideCardChoices()
-        }, 5000);
-        
-        const gameOver = document.createElement('div')
+            const gameOver = document.createElement('div')
         gameOver.classList.add('winScreen')
         gameOver.innerHTML = `
         <h1>You Win!</h1>
@@ -212,6 +231,9 @@ function youWin() {
         playAgain.addEventListener('click', function() {
             location.reload()
         })
+        }, 5000);
+        
+        
     }
 }
 
@@ -257,20 +279,17 @@ function createCard(data) {
 }
 
 let cardArr = []
-// https://d15f34w2p8l1cc.cloudfront.net/hearthstone/…c31b8121c00671820135f108703df12a5aa40980592c5.png
 
 function pickCard(e) {
     const card = e.target
     cardArr.push(card.src)
     card.classList.add('added')
-    // console.log(card)
     console.log(card.src)
 }
 
 
 function showCardChoices() {
     cardPicker.style.display = 'flex'
-    // showDeck()
 }
 
 function hideCardChoices() {
@@ -331,6 +350,4 @@ function hideDeck() {
 
 //result() compare arrays should be higher order func, every?
 
-//runPattern() space between repeated buttons in pattern
-//fix repeated cards being added on round 3 and above
-//css glow for buttons
+//
