@@ -230,7 +230,6 @@ main {
     left: 0;
     height: 50vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     display: none;
     flex-wrap: wrap;
@@ -240,7 +239,6 @@ main {
     max-width: 200px;
     height: 250px;
 }
-
 
 .show {
     display: flex;
@@ -256,7 +254,6 @@ main {
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
