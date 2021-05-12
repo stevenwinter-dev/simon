@@ -20,6 +20,13 @@ body {
     font-family: belwe;
     height: 100vh;
 }
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
 h1 {
     font-size: 4rem;
