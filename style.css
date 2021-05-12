@@ -28,6 +28,10 @@ header {
     text-align: center;
 }
 
+header h2 {
+    text-shadow: 3px 3px black;
+}
+
 h1 {
     font-size: 4rem;
     text-transform: uppercase;
@@ -316,5 +320,12 @@ footer {
     #inner-circle  {
         width: 150px;
         height: 150px;
+    }
+}
+
+@media screen and (max-width:450px){
+    .deck-container img {
+        width: 75px;
+        height: 100px;
     }
 }
