@@ -13,6 +13,8 @@ const deckContainer = document.querySelector('.deck-container')
 const showDeckBtn = document.querySelector('#showDeck')
 const innerCircle = document.querySelector('#inner-circle')
 const main = document.querySelector('main')
+const instructionContainer = document.querySelector('.instruction-container')
+const readyBtn = document.querySelector('#ready')
 const milli100 = 500;
 
 const title = document.querySelector('h1')
@@ -20,6 +22,9 @@ title.addEventListener('click', function() {
     playerPattern = pattern
     result()
 })
+
+//Game ready
+readyBtn.addEventListener('click', ready)
 
 //Start the game
 startBtn.addEventListener('click', start)
@@ -235,6 +240,12 @@ function youWin() {
         
         
     }
+}
+
+//Ready function
+function ready() {
+    instructionContainer.remove()
+    btns.forEach(btn => btn.style.display='block')
 }
 
 //starts the game when start button clicked

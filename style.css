@@ -41,6 +41,17 @@ main {
     letter-spacing: 2px;
 }
 
+#ready {
+    padding: 10px 25px;
+    border: none;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    background-color: lime;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
 .start {
     margin-bottom: 50px;
     cursor: pointer;
@@ -71,16 +82,28 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    height: 500px;
+    width: 500px;
+    background-color: #001219;
+    border-radius: 50%;
+    position: relative;
 }
 
 .instruction-container {
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 60%;
+    background-color: #001219;
+    border-radius: 50%;
+    z-index: 10;
+    margin-left: 10px;
+}
+
+.instruction-container > p {
+    margin: 15px;
 }
 
 .btn.userSelect {
@@ -95,24 +118,18 @@ main {
         /* filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5)); */
 }
 
-
-
 #start {
     margin-top: 50px;
-}
-
-.btn-container {
-    height: 500px;
-    width: 500px;
-    background-color: #001219;
-    border-radius: 50%;
-    position: relative;
 }
 
 .btn {
     cursor: pointer;
     border: 8px solid #001219;
     transition: all .2s ease;
+    height: 250px;
+    width: 250px;
+    display: none;
+    position: absolute;
 }
 
 .btn:hover {
@@ -120,9 +137,6 @@ main {
 }
 
 .btn1 {
-    height: 250px;
-    width: 250px;
-    position: absolute;
     top: 0;
     left: 0;
     /* background-color: #f72585; */
@@ -130,9 +144,6 @@ main {
     border-top-left-radius: 100%;
 }
 .btn2 {
-    height: 250px;
-    width: 250px;
-    position: absolute;
     top: 0;
     right: 0;
     /* background-color: #560bad; */
@@ -140,9 +151,6 @@ main {
     border-top-right-radius: 100%;
 }
 .btn3 {
-    height: 250px;
-    width: 250px;
-    position: absolute;
     bottom: 0;
     left: 0;
     /* background-color: #3f37c9; */
@@ -150,13 +158,8 @@ main {
     border-bottom-left-radius: 100%;
 }
 .btn4 {
-    height: 250px;
-    width: 250px;
-    position: absolute;
     bottom: 0;
     right: 0;
-    /* background-color: #4cc9f0; */
-    /* background-color: #94d2bd; */
     background-color: #4B3E5E;
     border-bottom-right-radius: 100%;
 }
@@ -272,6 +275,13 @@ footer {
     letter-spacing: 2px;
 }
 
+@media screen and (max-width:904px){
+    .deck-container img {
+        width: 150px;
+        height: 200px;
+    }
+}
+
 @media screen and (max-width:600px){
     .deck-container {
         flex-wrap: wrap;
@@ -282,9 +292,17 @@ footer {
     }
 }
 
-@media screen and (max-width:904px){
-    .deck-container img {
+@media screen and (max-width:500px){
+    .btn-container {
+        width: 350px;
+        height: 350px;
+    }
+    .btn {
+        height: 180px;
+        width: 180px;
+    }
+    #inner-circle  {
         width: 150px;
-        height: 200px;
+        height: 150px;
     }
 }
