@@ -295,6 +295,9 @@ footer {
 }
 
 @media screen and (max-width:500px){
+    body {
+        height: 88vh;
+    }
     h1 {
         font-size: 2rem;
     }
