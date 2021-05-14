@@ -26,6 +26,7 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 100vw;
 }
 
 header h2 {
@@ -44,6 +45,7 @@ main {
     flex-direction: column;
     align-items: center;
     width: 100vw;
+    height: 100%;
 }
 
 #level-container {
@@ -260,6 +262,10 @@ main {
     flex-direction: column;
 }
 
+.bg-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 #playAgain {
     background-color: transparent;
 }
@@ -283,6 +289,9 @@ main {
 footer {
     text-shadow: 1px 1px black;
     letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
 }
 
 @media screen and (max-width:904px){

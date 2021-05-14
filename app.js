@@ -12,7 +12,9 @@ const cardPicker = document.querySelector('.card-picker')
 const deckContainer = document.querySelector('.deck-container')
 const showDeckBtn = document.querySelector('#showDeck')
 const innerCircle = document.querySelector('#inner-circle')
+const header = document.querySelector('header')
 const main = document.querySelector('main')
+const footer = document.querySelector('footer')
 const instructionContainer = document.querySelector('.instruction-container')
 const readyBtn = document.querySelector('#ready')
 const milli100 = 500;
@@ -231,6 +233,10 @@ function youWin() {
         <p>Play again?</p>
         <button class='start' id='playAgain'><i class="far fa-play-circle"></i></button>
         `
+        // header
+        // main
+        // footer
+        // add bg-overlay class
         main.append(gameOver)
         const playAgain = document.querySelector('#playAgain')
         playAgain.addEventListener('click', function() {
@@ -349,16 +355,5 @@ function hideDeck() {
     deckContainer.style.display = 'none'
 }
 
-// showDeckBtn.addEventListener('click', function() {
-//     if (deckContainer.style.display === '' ||deckContainer.style.display === 'none') {
-//         deckContainer.style.display = 'flex'
-//     } else {
-//         deckContainer.style.display = 'none'
-//     }
-// })
-
-//Things to do:
-
-//result() compare arrays should be higher order func, every?
-
-//
+//font on github pages
+//line 236 stuff
