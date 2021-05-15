@@ -7,13 +7,13 @@
 body {
     background-color: black;
     background-image: url('https://cdn.mos.cms.futurecdn.net/NtowSHSt9QyN4KHaW8ELWk.jpg');
-    /* background-size: cover; */
     background-position: 51% 10%;
     background-attachment: fixed;
     color: white;
     font-family: 'Source Serif Pro', serif;
     height: 100vh;
 }
+
 header {
     display: flex;
     flex-direction: column;
