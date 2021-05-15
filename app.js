@@ -10,20 +10,14 @@ const winEl = document.querySelector('#win')
 const levelEl = document.querySelector('#level-container')
 const cardPicker = document.querySelector('.card-picker')
 const deckContainer = document.querySelector('.deck-container')
-const showDeckBtn = document.querySelector('#showDeck')
-const innerCircle = document.querySelector('#inner-circle')
 const header = document.querySelector('header')
+const headerTitle = document.querySelector('header h1')
+const headerSub = document.querySelector('header h2')
 const main = document.querySelector('main')
 const footer = document.querySelector('footer')
 const instructionContainer = document.querySelector('.instruction-container')
 const readyBtn = document.querySelector('#ready')
 const milli100 = 500;
-
-const title = document.querySelector('h1')
-title.addEventListener('click', function() {
-    playerPattern = pattern
-    result()
-})
 
 //Game ready
 readyBtn.addEventListener('click', ready)
@@ -46,9 +40,6 @@ let isPlayingPattern = false;
 
 //Shows the computer pattern that the player must copy
 function runPattern(order) {
-    console.log(pattern)
-    console.log(cardArr)
-    //plays pattern array
     isPlayingPattern = true
     btnFlash(order[0])
     setTimeout(() => {
@@ -61,7 +52,6 @@ function runPattern(order) {
         btnFlash(order[3])
         isPlayingPattern = false
     }, milli100*3)
-    
     setTimeout(() => {
         if(level === 2) {
             btnFlash(order[4])
@@ -110,9 +100,6 @@ function runPattern(order) {
             }, milli100 * 4);   
         }  
     }, milli100*3.2)
-    
-    //adds selected class
-    //removes selected class
 }
 
 //button flashes when computer selects it
@@ -147,17 +134,16 @@ function playerClick(e) {
 //if arrays are different, lose
     //game over
 function result() {
-        let result1 = (arr1, arr2) => {
-            for(let i = 0; i < arr1.length; i++) {
-                if (arr1[i] !== arr2[i]) return false;
-            }
-            return true
-        } 
+    let result1 = (arr1, arr2) => {
+        for(let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) return false;
+        }
+        return true
+    } 
     if(result1(playerPattern, pattern)) {
         winEl.innerHTML = `
         <h2>Great job!</h2>
         `
-        //prolly add win function here with if statement. make level global variable
         nextLevel()
     } else {
         winEl.innerHTML = `
@@ -171,7 +157,6 @@ function result() {
         })
     }
 }
-
 
 //Called by result() if winning condition met
 //Resets DOM elements and starts next level
@@ -194,8 +179,6 @@ function nextLevel() {
     } else {
         youWin()
     }
-    
-    
 }
 
 function levelChange() {
@@ -218,7 +201,6 @@ function youWin() {
     if(level === 5) {
         levelEl.remove()
         winEl.remove()
-        innerCircle.remove()
         btnsContainer.remove()
         showCardChoices()
         setTimeout(() => {
@@ -233,6 +215,11 @@ function youWin() {
         <p>Play again?</p>
         <button class='start' id='playAgain'><i class="far fa-play-circle"></i></button>
         `
+        header.classList.add('bg-overlay')
+        main.classList.add('bg-overlay')
+        footer.classList.add('bg-overlay')
+        headerTitle.style.opacity = '0'
+        headerSub.style.opacity = '0'
         // header
         // main
         // footer
@@ -355,5 +342,18 @@ function hideDeck() {
     deckContainer.style.display = 'none'
 }
 
+//Cheat
+const title = document.querySelector('h1')
+title.addEventListener('click', function() {
+    playerPattern = pattern
+    result()
+})
+
 //font on github pages
 //line 236 stuff
+//refactor
+    // What would you do differently?
+    // What are you most proud of?
+    // What would you do next?
+    // How did you plan your project?
+    // What did you learn?

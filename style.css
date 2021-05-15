@@ -101,6 +101,7 @@ main {
     background-color: #001219;
     border-radius: 50%;
     position: relative;
+    margin-top: 15px;
 }
 
 .instruction-container {
@@ -316,6 +317,7 @@ footer {
         font-size: 2rem;
     }
     .btn-container {
+        margin-top: 150px;
         width: 350px;
         height: 350px;
     }
