@@ -27,7 +27,7 @@ git clone https://github.com/stevenwinter-dev/simon.git
 ## Initial Wireframe
 
 ![Wireframe](https://i.imgur.com/ROODFkf.jpg)
-This wireframe displays the basic components of a Simon game. I spread out the 4 buttons for simplicities sake. Rather than cloning Simon from step one, I began with getting the core gameplay functionality and this simple layout helped acheive that.
+This wireframe displays the basic components of a Simon game. I spread out the 4 buttons for simplicities sake. Rather than cloning Simon from step one, I began with getting the core gameplay functionality and this simple layout helped achieve that.
 
 ## User Stories
 
@@ -45,14 +45,14 @@ This wireframe displays the basic components of a Simon game. I spread out the 4
 
 - Getting the timings for the button flashes was my first major hurdle. Adding `setTimeout()` methods provided control over these timing issues.
 
-- The complexity of my function chaining was another challenge. Many functions, like the `youWin()` function envoke others, such as `showCardChoices() cardArrFunc() showDeck() hideCardChoices()`. The solution was to write clean, concise functions that interact easily with others. Having each function serve a very specific purpose rather than a few functions trying to do everything.
+- The complexity of my function chaining was another challenge. Many functions, like the `youWin()` function invoke others, such as `showCardChoices() cardArrFunc() showDeck() hideCardChoices()`. The solution was to write clean, concise functions that interact easily with others. Having each function serve a very specific purpose rather than a few functions trying to do everything.
 
 - The `cardArrFunc()` function was intended to add one card to the deck. There was a challenging bug that would frequently add duplicates of cards starting on level three. The fact that it wasn't consistent and that it didn't begin until a later level made solving this problem quite difficult. Ultimately, I decided to rework how I displayed the deck, only calling the `cardArrFunc()` function once, at the end of the game. Sacrificing some interesting complexity in favor of simplicity, in this case, made the game work better.
 
 ## Unsolved problems 
 
-- Currently, their are many `setTimeout()` methods that should be converted to asynchronous functions. This would require a substantial rework but will provide cleaner code and improved scalability. Many functions, such as `levelChange() youWin()` were written based on the `setTimeout()` layout. This created some clutter in the code that is not ideal. Upon completion of the asynchronous converstion, many of these functions could be cleaned up. 
+- Currently, their are many `setTimeout()` methods that should be converted to asynchronous functions. This would require a substantial rework but will provide cleaner code and improved scalability. Many functions, such as `levelChange() youWin()` were written based on the `setTimeout()` layout. This created some clutter in the code that is not ideal. Upon completion of the asynchronous conversion, many of these functions could be cleaned up. 
 
-- Showing the deck throughout different points in the game. The fact that `nextLevel()` is a recursive function that, originially, called the `showDeck()` function created duplicate cards. The way the `nextLevel()` function is designed, which coordinates with much of the other logic of this game, makes fixing this issue difficult. A substantial redesign of game logic will be needed to correct this. Currently, as noted above, the `showDeck()` function is only showed at the end of the game to prevent this problem from occuring. 
+- Showing the deck throughout different points in the game. The fact that `nextLevel()` is a recursive function that, originally, called the `showDeck()` function created duplicate cards. The way the `nextLevel()` function is designed, which coordinates with much of the other logic of this game, makes fixing this issue difficult. A substantial redesign of game logic will be needed to correct this. Currently, as noted above, the `showDeck()` function is only showed at the end of the game to prevent this problem from occurring. 
 
 ![hearthstone simon](https://i.imgur.com/uReO3bX.png)

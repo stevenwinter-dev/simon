@@ -17,8 +17,6 @@ body {
 header {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     width: 100vw;
 }
@@ -121,10 +119,8 @@ main {
 
 .btn.selected {
     transform: scale(1.03);
-    /* background-color: white; */
-        box-shadow: 0px 0px 17px 17px white;
-        border: white;
-        /* filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5)); */
+    box-shadow: 0px 0px 17px 17px white;
+    border: white;
 }
 
 #start {
@@ -148,21 +144,18 @@ main {
 .btn1 {
     top: 0;
     left: 0;
-    /* background-color: #f72585; */
     background-color: #0a9396;
     border-top-left-radius: 100%;
 }
 .btn2 {
     top: 0;
     right: 0;
-    /* background-color: #560bad; */
     background-color: #ee9b00;
     border-top-right-radius: 100%;
 }
 .btn3 {
     bottom: 0;
     left: 0;
-    /* background-color: #3f37c9; */
     background-color: #ae2012;
     border-bottom-left-radius: 100%;
 }
@@ -177,8 +170,6 @@ main {
     box-shadow: 0px 0px 7px 7px white;
     border: white;
 }
-
-
 
 #inner-circle {
     position: absolute;
@@ -300,6 +291,7 @@ footer {
     .deck-container {
         flex-wrap: wrap;
     }
+
     .deck-container img {
         width: 150px;
         height: 200px;
@@ -310,15 +302,18 @@ footer {
     h1 {
         font-size: 2rem;
     }
+
     .btn-container {
         margin-top: 150px;
         width: 350px;
         height: 350px;
     }
+
     .btn {
         height: 180px;
         width: 180px;
     }
+    
     #inner-circle  {
         width: 150px;
         height: 150px;
