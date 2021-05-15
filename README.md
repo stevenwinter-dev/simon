@@ -1,5 +1,7 @@
 # Hearthstone Simon
 
+![hearthstone winter](https://media1.giphy.com/media/6AnL61G3JkMUBukULh/giphy.gif?cid=790b761123ce169bdf08031eb75e9c7bb2487ffcd888416f&rid=giphy.gif&ct=g)
+
 ## [Play Now](https://stevenwinter-dev.github.io/simon/)
 
 ![hearthstone simon](https://i.imgur.com/sfsyVNG.png)
